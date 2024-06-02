@@ -8,11 +8,20 @@ import {
 import './index.css'
 import Home from './pages/Home.jsx';
 import NotFound from './pages/NotFound.jsx';
+import Login from './pages/Login.jsx';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/register",
+    element: <Login />,
   },
   {
     path: "*",
