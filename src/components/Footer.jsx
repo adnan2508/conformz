@@ -4,7 +4,7 @@ import logo from "../assets/conformz.png"
 const Footer = () => {
   return (
     <div>
-      <footer className="footer p-10 bg-[#41A5D2] text-white">
+      <footer className="footer p-10 bg-[#41A5D2] text-white font-mulish">
         <aside>
             <img src={logo} alt="" className="w-12"/>
           {/* <svg
@@ -23,7 +23,7 @@ const Footer = () => {
             <br />
             Providing reliable contest since 1992
           </p>
-          <p>Copyright © 2024 - All right reserved by ACME Industries Ltd</p>
+          <p>Copyright © 2024 - All right reserved by Conformz contest Hub Ltd</p>
         </aside>
         <nav>
           <h6 className="footer-title">Social</h6>
