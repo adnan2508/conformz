@@ -1,8 +1,40 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Helmet } from "react-helmet";
+import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../providers/AuthProviders";
 
 const Register = () => {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+
+  const {createUser} = useContext(AuthContext);
+
+  const onSubmit = (data) => {
+    console.log(data);
+    createUser(data.email, data.password)
+    .then(result => {
+      const loggedUser = result.user;
+      console.log(loggedUser);
+    })
+  };
+
+  console.log(watch("example"));
+
+  // const handleRegister = e => {
+  //   e.preventDefault();
+  //   const form = e.target;
+  //   const name = form.name.value;
+  //   const email = form.email.value;
+  //   const password = form.password.value;
+  //   const photo = form.photo.value;
+
+  //   console.log(name, email, password, photo);
+  // }
   return (
     <div>
       <Helmet>
@@ -15,18 +47,19 @@ const Register = () => {
               <h1 className="text-5xl font-bold">Create an Account</h1> 
             </div>
             <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-              <form className="card-body">
+              <form onSubmit={handleSubmit(onSubmit)} className="card-body">
                 <div className="form-control">
                   <label className="label">
                     <span className="label-text">Name</span>
                   </label>
                   <input
                     type="text"
+                    {...register("name", { required: true })}
                     name="name"
                     placeholder="Name"
                     className="input input-bordered"
-                    required
                   />
+                   {errors.name && <span className="text-red-600">Name is required</span>}
                 </div>
                 <div className="form-control">
                   <label className="label">
@@ -34,11 +67,12 @@ const Register = () => {
                   </label>
                   <input
                     type="email"
+                    {...register("email", { required: true })}
                     name="email"
                     placeholder="email"
-                    className="input input-bordered"
-                    required
+                    className="input input-bordered" 
                   />
+                  {errors.email && <span className="text-red-600">Email is required</span>}
                 </div>
                 <div className="form-control">
                   <label className="label">
@@ -46,22 +80,24 @@ const Register = () => {
                   </label>
                   <input
                     type="password"
+                    {...register("password", { required: true, minLength: 6 })}
                     name="password"
                     placeholder="password"
                     className="input input-bordered"
-                    required
                   />
+                  {errors.password && <span className="text-red-600">Password is required</span>}
                   <div className="form-control">
                   <label className="label">
                     <span className="label-text">Photo URL</span>
                   </label>
                   <input
                     type="text"
+                    {...register("photo", { required: true })}
                     name="photo"
                     placeholder="Photo URL"
                     className="input input-bordered"
-                    required
                   />
+                  {errors.photo && <span className="text-red-600">Photo is required</span>}
                 </div>
                   <label className="label">
                     <Link to='/login' href="#" className="label-text-alt link link-hover">

@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../providers/AuthProviders";
 
 const Navbar = () => {
+  const {user, logOut} = useContext(AuthContext);
+
+  const handleLogout = () =>{
+    logOut()
+    .then(()=>{})
+    .catch(error=>console.log(error));
+  }
   return (
     <div>
       <div className="navbar bg-[#41A5D2] font-mulish">
@@ -71,11 +79,61 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-        <div className="navbar-end">
-          <Link to="/login" className="btn">Login</Link>
+        {!user && (
+          <div className="navbar-end">
+            <Link to='/login' className="btn px-8 bg-[#FBBF77] border-none text-white">
+              Login
+            </Link>
+            <Link to='/register' className="btn px-8 ml-4 bg-[#B7410e] border-none text-white">
+              Register
+            </Link>
+          </div>
+        )}
+
+        {user && (
+          <div className="navbar-end">
+            
+            <div className="dropdown dropdown-end mr-5">
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn btn-ghost btn-circle avatar"
+              >
+                <div title={user?.displayName} className="w-16 rounded-full">
+                  <img
+                  referrerPolicy="no-referrer"
+                    alt="Tailwind CSS Navbar component"
+                    src={user?.photoURL}
+                  />
+                </div>
+              </div>
+              <ul
+                tabIndex={0}
+                className="menu menu-sm bg-orange-500 dropdown-content mt-3 z-[1] p-2 shadow rounded-box w-52"
+              >
+                <li>
+                  <Link to="/myAddedFood">
+                  My added food items
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/addFood">Add a food item</Link>
+                </li>
+                <li>
+                  <Link to="/myOrderedFood">My ordered food items</Link>
+                </li>
+              </ul>
+            </div>
+
+            <a
+            onClick={logOut} 
+            className="btn px-8 bg-[#B7410e] border-none text-white">
+              Logout
+            </a>
+          </div>
+        )}
         </div>
       </div>
-    </div>
   );
 };
 
