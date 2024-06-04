@@ -12,7 +12,7 @@ const Login = () => {
 
     const from = location.state?.from?.pathname || "/";
 
-    const {signIn} = useContext(AuthContext);
+    const {signIn, googleLogin} = useContext(AuthContext);
 
 
     useEffect(() => {
@@ -47,6 +47,16 @@ const Login = () => {
           navigate(from, { replace: true });
         })
     }
+
+    const handleSocialLogin = socialProvider => {
+      socialProvider()
+      .then(result => {
+          if (result.user) {
+              navigate(from);
+          }
+      });
+  }
+
   return (
     <div>
       <Helmet>
@@ -117,10 +127,10 @@ const Login = () => {
                 </div>
                 <p class="mt-4 text-center text-gray-600">or Login with</p>
 
-              <a
-                // onClick={}
-                href="#"
+              <button
+                 onClick={()=> handleSocialLogin(googleLogin)}
                 className="flex items-center justify-center px-6 py-3 mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg  hover:bg-gray-50"
+                // className='btn flex gap-8 w-11/12 mx-auto border-2 rounded-lg  items-center justify-center'
               >
                 <svg class="w-6 h-6 mx-2" viewBox="0 0 40 40">
                   <path
@@ -142,7 +152,7 @@ const Login = () => {
                 </svg>
 
                 <span class="mx-2">Login with Google</span>
-              </a>
+              </button>
               </form>
             </div>
           </div>

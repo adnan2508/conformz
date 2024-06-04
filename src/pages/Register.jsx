@@ -34,6 +34,7 @@ const Register = () => {
             text: "Your account has been created successfully!",
             icon: "success",
           });
+          navigate(from, { replace: true });
         })
         .catch((error) => console.log(error));
     });
