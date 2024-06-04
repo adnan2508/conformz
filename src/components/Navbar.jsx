@@ -126,14 +126,11 @@ const Navbar = () => {
                 <li>
                   <Link to="/myOrderedFood">My ordered food items</Link>
                 </li>
+                <li>
+                  <Link onClick={logOut}>Logout</Link>
+                </li>
               </ul>
             </div>
-
-            <a
-            onClick={logOut} 
-            className="btn px-8 bg-[#B7410e] border-none text-white">
-              Logout
-            </a>
           </div>
         )}
         </div>
