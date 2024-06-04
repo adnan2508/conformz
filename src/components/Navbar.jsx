@@ -4,6 +4,7 @@ import { AuthContext } from "../providers/AuthProviders";
 
 const Navbar = () => {
   const {user, logOut} = useContext(AuthContext);
+  console.log(user);
 
   const handleLogout = () =>{
     logOut()
@@ -33,7 +34,7 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow rounded-box w-52 bg-[#41A5D2]"
             >
               <li>
                 <Link to="/">Home</Link>
@@ -109,8 +110,11 @@ const Navbar = () => {
               </div>
               <ul
                 tabIndex={0}
-                className="menu menu-sm bg-orange-500 dropdown-content mt-3 z-[1] p-2 shadow rounded-box w-52"
+                className="menu menu-sm bg-[#41A5D2] dropdown-content mt-3 z-[1] p-2 shadow rounded-box w-52"
               >
+                <li> 
+                  <Link>{user.displayName}</Link>
+                </li>
                 <li>
                   <Link to="/myAddedFood">
                   My added food items

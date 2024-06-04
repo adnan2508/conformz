@@ -11,6 +11,8 @@ import NotFound from './pages/NotFound.jsx';
 import Login from './pages/Login.jsx';
 import Register from './pages/Register.jsx';
 import AuthProviders from './providers/AuthProviders.jsx';
+import PrivateRoutes from './routes/PrivateRoutes.jsx';
+import Secret from './components/Secret.jsx';
 
 const router = createBrowserRouter([
   {
@@ -24,6 +26,10 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "/secret",
+    element: <PrivateRoutes><Secret /></PrivateRoutes> ,
   },
   {
     path: "*",
