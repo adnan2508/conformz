@@ -52,6 +52,11 @@ const Login = () => {
       socialProvider()
       .then(result => {
           if (result.user) {
+            Swal.fire({
+              title: "Log In successful!",
+              text: "You have logged in!",
+              icon: "success"
+            });
               navigate(from);
           }
       });
