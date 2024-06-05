@@ -1,11 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProviders";
 import Swal from "sweetalert2";
+import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 
 const Register = () => {
+  const [disabled, setDisabled] = useState(true);
   const {
     register,
     handleSubmit,
@@ -41,6 +43,21 @@ const Register = () => {
   };
 
   console.log(watch("example"));
+
+  useEffect(() => {
+    loadCaptchaEnginge(4);
+}, [])
+
+const handleValidateCaptcha = (e) => {
+    const user_captcha_value = e.target.value;
+    if(validateCaptcha(user_captcha_value)){
+        setDisabled(false);
+    }
+    else {
+        setDisabled(true);
+    }
+    console.log(value);
+}
 
   // const handleRegister = e => {
   //   e.preventDefault();
@@ -124,6 +141,18 @@ const Register = () => {
                       <span className="text-red-600">Photo is required</span>
                     )}
                   </div>
+                  <label className="label">
+                  <LoadCanvasTemplate />
+                  </label>
+                  <input
+                    type="text"
+                    // ref={captchaRef}
+                    onBlur={handleValidateCaptcha}
+                    name="captcha"
+                    placeholder="captcha"
+                    className="input input-bordered"
+                    required
+                  />
                   <label className="label">
                     <Link
                       to="/login"
