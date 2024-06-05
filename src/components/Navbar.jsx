@@ -1,19 +1,35 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProviders";
 
 const Navbar = () => {
-  const {user, logOut} = useContext(AuthContext);
+  const [theme, setTheme] = useState(
+    localStorage.getItem("theme") ? localStorage.getItem("theme") : "light");
+  const { user, logOut } = useContext(AuthContext);
   console.log(user);
 
-  const handleLogout = () =>{
+  const handleToggle = e => {
+    if(e.target.checked) {
+      setTheme("dark");
+    } else {
+      setTheme("light");
+    }
+  };
+
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+    const localTheme = localStorage.getItem("theme");
+    document.querySelector("html").setAttribute("data-theme", localTheme);
+  }, [theme])
+
+  const handleLogout = () => {
     logOut()
-    .then(()=>{})
-    .catch(error=>console.log(error));
-  }
+      .then(() => {})
+      .catch((error) => console.log(error));
+  };
   return (
     <div>
-      <div className="navbar bg-[#41A5D2] font-mulish">
+      <div className="navbar bg-[#41A5D2] font-mulish text-white">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -82,10 +98,20 @@ const Navbar = () => {
         </div>
         {!user && (
           <div className="navbar-end">
-            <Link to='/login' className="btn px-8 bg-[#FBBF77] border-none text-white">
+            <input type="checkbox"
+            onChange={handleToggle} 
+            checked = {theme === "light" ? false : true}
+            className="toggle mr-5"/>
+            <Link
+              to="/login"
+              className="btn px-8 bg-[#FBBF77] border-none text-white"
+            >
               Login
             </Link>
-            <Link to='/register' className="btn px-8 ml-4 bg-[#B7410e] border-none text-white">
+            <Link
+              to="/register"
+              className="btn px-8 ml-4 bg-[#B7410e] border-none text-white"
+            >
               Register
             </Link>
           </div>
@@ -93,8 +119,8 @@ const Navbar = () => {
 
         {user && (
           <div className="navbar-end">
-            
             <div className="dropdown dropdown-end mr-5">
+              <input type="checkbox" className="toggle" checked />
               <div
                 tabIndex={0}
                 role="button"
@@ -102,7 +128,7 @@ const Navbar = () => {
               >
                 <div title={user?.displayName} className="w-16 rounded-full">
                   <img
-                  referrerPolicy="no-referrer"
+                    referrerPolicy="no-referrer"
                     alt="Tailwind CSS Navbar component"
                     src={user?.photoURL}
                   />
@@ -112,13 +138,11 @@ const Navbar = () => {
                 tabIndex={0}
                 className="menu menu-sm bg-[#41A5D2] dropdown-content mt-3 z-[1] p-2 shadow rounded-box w-52"
               >
-                <li> 
+                <li>
                   <Link>{user.displayName}</Link>
                 </li>
                 <li>
-                  <Link to="/myAddedFood">
-                  My added food items
-                  </Link>
+                  <Link to="/myAddedFood">My added food items</Link>
                 </li>
                 <li>
                   <Link to="/addFood">Add a food item</Link>
@@ -133,8 +157,8 @@ const Navbar = () => {
             </div>
           </div>
         )}
-        </div>
       </div>
+    </div>
   );
 };
 

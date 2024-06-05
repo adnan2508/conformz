@@ -67,7 +67,7 @@ const Login = () => {
       <Helmet>
         <title>Conformz | Login</title>
       </Helmet>
-      <div className="w-11/12 mx-auto">
+      <div className="w-11/12 mx-auto font-mulish">
         <div className="hero min-h-screen bg-base-200">
           <div className="hero-content flex-col">
             <div className="text-center">
