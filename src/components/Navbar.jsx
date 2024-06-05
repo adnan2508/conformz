@@ -119,11 +119,11 @@ const Navbar = () => {
 
         {user && (
           <div className="navbar-end">
-            <div className="dropdown dropdown-end mr-5">
             <input type="checkbox"
             onChange={handleToggle} 
             checked = {theme === "light" ? false : true}
             className="toggle mr-5"/>
+            <div className="dropdown dropdown-end mr-5">
               <div
                 tabIndex={0}
                 role="button"

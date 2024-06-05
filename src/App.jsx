@@ -1,11 +1,11 @@
-function App() {
-  
+import MainLayout from "./components/layout/MainLayout";
+import PrivateRoutes from "./routes/PrivateRoutes";
 
+const App = () => {
   return (
-    <>
-      <h1 className="font-mulish text-8xl">Vite + React</h1>
-    </>
-  )
-}
-
-export default App
+    <PrivateRoutes role={undefined}>
+      <MainLayout />
+    </PrivateRoutes>
+  );
+};
+export default App;
