@@ -5,7 +5,7 @@ import Login from '../pages/Login.jsx';
 import Register from '../pages/Register.jsx';
 import Secret from '../components/Secret.jsx';
 import Main from "../layouts/Main.jsx";
-import PrivateRoutes from "./PrivateRoutes.jsx";
+import PrivateRoutes from "./PrivateRoutes.jsx"; 
 
 export const router = createBrowserRouter([
   {
