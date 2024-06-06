@@ -9,11 +9,9 @@ const Login = () => {
     const [disabled, setDisabled] = useState(true);
     const navigate = useNavigate();
     const location = useLocation();
-
     const from = location.state?.from?.pathname || "/";
 
     const {signIn, googleLogin} = useContext(AuthContext);
-
 
     useEffect(() => {
         loadCaptchaEnginge(4);

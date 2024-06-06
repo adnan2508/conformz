@@ -8,11 +8,11 @@ const Home = () => {
       <Helmet>
         <title>Conformz | Home</title>
       </Helmet>
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="w-11/12 mx-auto">
         <h2>This is home</h2>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

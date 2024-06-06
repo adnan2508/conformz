@@ -4,12 +4,13 @@ import { AuthContext } from "../providers/AuthProviders";
 
 const Navbar = () => {
   const [theme, setTheme] = useState(
-    localStorage.getItem("theme") ? localStorage.getItem("theme") : "light");
+    localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
+  );
   const { user, logOut } = useContext(AuthContext);
   console.log(user);
 
-  const handleToggle = e => {
-    if(e.target.checked) {
+  const handleToggle = (e) => {
+    if (e.target.checked) {
       setTheme("dark");
     } else {
       setTheme("light");
@@ -20,7 +21,7 @@ const Navbar = () => {
     localStorage.setItem("theme", theme);
     const localTheme = localStorage.getItem("theme");
     document.querySelector("html").setAttribute("data-theme", localTheme);
-  }, [theme])
+  }, [theme]);
 
   const handleLogout = () => {
     logOut()
@@ -50,8 +51,7 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow rounded-box w-52 bg-[#41A5D2]"
-            >
+              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-[#41A5D2] rounded-box w-52">
               <li>
                 <Link to="/">Home</Link>
               </li>
@@ -81,7 +81,7 @@ const Navbar = () => {
             <li>
               <details>
                 <summary>Parent</summary>
-                <ul className="p-2">
+                <ul className="px-2 text-black bg-base-100">
                   <li>
                     <a>Submenu 1</a>
                   </li>
@@ -98,10 +98,12 @@ const Navbar = () => {
         </div>
         {!user && (
           <div className="navbar-end">
-            <input type="checkbox"
-            onChange={handleToggle} 
-            checked = {theme === "light" ? false : true}
-            className="toggle mr-5"/>
+            <input
+              type="checkbox"
+              onChange={handleToggle}
+              checked={theme === "light" ? false : true}
+              className="toggle mr-5"
+            />
             <Link
               to="/login"
               className="btn px-8 bg-[#FBBF77] border-none text-white"
@@ -119,10 +121,12 @@ const Navbar = () => {
 
         {user && (
           <div className="navbar-end">
-            <input type="checkbox"
-            onChange={handleToggle} 
-            checked = {theme === "light" ? false : true}
-            className="toggle mr-5"/>
+            <input
+              type="checkbox"
+              onChange={handleToggle}
+              checked={theme === "light" ? false : true}
+              className="toggle mr-5"
+            />
             <div className="dropdown dropdown-end mr-5">
               <div
                 tabIndex={0}
