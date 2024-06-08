@@ -1,0 +1,62 @@
+[
+  {
+    "contestName": "Creative Image Design Contest",
+    "image": "https://t4.ftcdn.net/jpg/01/93/56/65/360_F_193566590_Z53BKpL6pwiQSkoxYDucGE2tNT3N9yPY.jpg",
+    "contestDescription": "Showcase your creativity by designing a unique image based on the theme provided.",
+    "contestPrice": "$10",
+    "prize": "$500",
+    "taskSubmission": "Submit a high-resolution image in JPEG or PNG format.",
+    "contestType": "Image Design Contests",
+    "contestDeadline": "2024-08-15T23:59:59Z"
+  },
+  {
+    "contestName": "Article Writing Competition",
+    "image": "https://don16obqbay2c.cloudfront.net/wp-content/uploads/25-Proven-Social-Media-Contest-Ideas-to-Promote-Your-Online-Business-1584098454.png",
+    "contestDescription": "Write an insightful article on the impact of technology in education.",
+    "contestPrice": "$5",
+    "prize": "$300",
+    "taskSubmission": "Submit a 1500-2000 word article in PDF format.",
+    "contestType": "Article Writing",
+    "contestDeadline": "2024-07-30T23:59:59Z"
+  },
+  {
+    "contestName": "Marketing Strategy Challenge",
+    "image": "https://d1ng1bucl7w66k.cloudfront.net/ghost-blog/2022/05/Screen-Shot-2022-05-24-at-2.47.41-PM.png",
+    "contestDescription": "Develop a comprehensive marketing strategy for a new product launch.",
+    "contestPrice": "$20",
+    "prize": "$1000",
+    "taskSubmission": "Submit a detailed marketing plan in PDF format.",
+    "contestType": "Marketing Strategy",
+    "contestDeadline": "2024-09-10T23:59:59Z"
+  },
+  {
+    "contestName": "Digital Advertisement Contest",
+    "image": "https://d1ng1bucl7w66k.cloudfront.net/ghost-blog/2022/01/Screen-Shot-2022-01-31-at-9.42.41-AM.png",
+    "contestDescription": "Create an engaging digital advertisement for our brand.",
+    "contestPrice": "$15",
+    "prize": "$700",
+    "taskSubmission": "Submit a video advertisement in MP4 format.",
+    "contestType": "Digital advertisement Contests",
+    "contestDeadline": "2024-08-25T23:59:59Z"
+  },
+  {
+    "contestName": "Gaming Review Contest",
+    "image": "https://media.geeksforgeeks.org/wp-content/uploads/20230124181625/Weekly-Coding-Contest-Platforms.png",
+    "contestDescription": "Write a comprehensive review of the latest gaming console.",
+    "contestPrice": "$10",
+    "prize": "$400",
+    "taskSubmission": "Submit a review in PDF format with images.",
+    "contestType": "Gaming Review",
+    "contestDeadline": "2024-07-20T23:59:59Z"
+  },
+  {
+    "contestName": "Business Idea Pitch Competition",
+    "image": "https://thesmartsource.com/wp-content/uploads/2019/08/Video-game-tournament-1024x683.jpg",
+    "contestDescription": "Pitch your innovative business idea to our panel of judges.",
+    "contestPrice": "$25",
+    "prize": "$1500",
+    "taskSubmission": "Submit a pitch deck in PDF format.",
+    "contestType": "Business Idea Concerts",
+    "contestDeadline": "2024-10-05T23:59:59Z"
+  }
+]

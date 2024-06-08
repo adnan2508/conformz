@@ -6,6 +6,7 @@ import Register from '../pages/Register.jsx';
 import Secret from '../components/Secret.jsx';
 import Main from "../layouts/Main.jsx";
 import PrivateRoutes from "./PrivateRoutes.jsx"; 
+import AllContests from "../pages/AllContests.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/allContests",
+        element: <AllContests />,
       },
       {
         path: "/secret",
