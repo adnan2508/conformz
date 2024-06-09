@@ -153,7 +153,7 @@ const Navbar = () => {
                   <Link>{user.displayName}</Link>
                 </li>
                 <li>
-                  <Link to="/myAddedFood">My added food items</Link>
+                  <Link to="/dashboard">Dashboard</Link>
                 </li>
                 <li>
                   <Link to="/addFood">Add a food item</Link>

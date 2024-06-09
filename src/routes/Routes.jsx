@@ -7,6 +7,7 @@ import Secret from '../components/Secret.jsx';
 import Main from "../layouts/Main.jsx";
 import PrivateRoutes from "./PrivateRoutes.jsx"; 
 import AllContests from "../pages/AllContests.jsx";
+import ContestDetails from "../pages/ContestDetails.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -23,8 +24,8 @@ export const router = createBrowserRouter([
         element: <AllContests />,
       },
       {
-        path: "/secret",
-        element: <PrivateRoutes><Secret /></PrivateRoutes>,
+        path: "/contest/:id",
+        element: <PrivateRoutes><ContestDetails /></PrivateRoutes>,
       },
     ]
   },
@@ -35,5 +36,10 @@ export const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "/dashboard",
+    element: <p>Dashboard</p>,
+    children: [],
   },
 ])

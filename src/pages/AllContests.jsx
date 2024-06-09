@@ -7,18 +7,18 @@ import {
   QueryClientProvider,
   useQuery,
 } from "@tanstack/react-query";
-import useAxiosSecure from "../hooks/useAxiosSecure";
 import LoadingSpinner from "../components/LoadingSpinner";
 import Contest from "../components/Contest";
+import UseAxiosCommon from "../hooks/UseAxiosCommon";
 
 const AllContests = () => {
-  const axiosSecure = useAxiosSecure();
+  const axiosCommon = UseAxiosCommon();
   const [loading, setLoading] = useState(false);
 
   const { data: contests = [], isLoading } = useQuery({
     queryKey: ["contests"],
     queryFn: async () => {
-      const { data } = await axiosSecure.get(`/contests`);
+      const { data } = await axiosCommon.get(`/contests`);
       return data;
     },
   });

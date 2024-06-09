@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Contest = ({ contest }) => {
   return (
     <div>
@@ -13,9 +15,9 @@ const Contest = ({ contest }) => {
           <h2 className="card-title">{contest.contestName}</h2>
           <p>{contest.contestDescription}</p>
           <p>Category: {contest.contestType}</p>
-          <div className="card-actions justify-end">
+          <Link to={`/contest/${contest._id}`} className="card-actions justify-end">
             <button className="btn btn-primary">Details</button>
-          </div>
+          </Link>
         </div>
       </div>
     </div>
