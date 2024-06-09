@@ -3,7 +3,7 @@ import { DateRange } from "react-date-range";
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css';
 
-const AddContestForm = ({dates, handleDates}) => {
+const AddContestForm = ({dates, handleDates, handleSubmit, setImagePreview, imagePreview, handleImage, imageText}) => {
   const [state, setState] = useState([
     {
       startDate: new Date(),
@@ -14,11 +14,11 @@ const AddContestForm = ({dates, handleDates}) => {
 
   return (
     <div className="w-full min-h-[calc(100vh-40px)] flex flex-col justify-center items-center text-gray-800 rounded-xl bg-gray-50 p-5">
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           <div className="space-y-6">
             <div className="space-y-1 text-sm">
-              <label htmlFor="location" className="block text-gray-600">
+              <label htmlFor="contestName" className="block text-gray-600">
                 Contest Name
               </label>
               <input
@@ -85,23 +85,27 @@ const AddContestForm = ({dates, handleDates}) => {
               />
             </div>
 
-            <div className=" p-4 bg-white w-full  m-auto rounded-lg">
+            <div className=" p-4 bg-white w-full  m-auto rounded-lg flex justify-between items-center">
               <div className="file_upload px-5 py-3 relative border-4 border-dotted border-gray-300 rounded-lg">
                 <div className="flex flex-col w-max mx-auto text-center">
                   <label>
                     <input
                       className="text-sm cursor-pointer w-36 hidden"
                       type="file"
+                      onChange={e => handleImage(e.target.files[0])}
                       name="image"
                       id="image"
                       accept="image/*"
                       hidden
                     />
                     <div className="bg-[#41A5D2] text-white border border-gray-300 rounded font-semibold cursor-pointer p-1 px-3 hover:bg-[#035479]">
-                      Upload Image
+                      {imageText.length > 20 ?  imageText.split('.')[0].slice(0,15) + '.....' + imageText.split('.')[1] : imageText}
                     </div>
                   </label>
                 </div>
+              </div>
+              <div>
+              <div className="h-16 w-16 object-cover overflow-hidden flex items-center">{imagePreview && <img src={imagePreview} />}</div>
               </div>
             </div>
             <div className="flex justify-between gap-2">
