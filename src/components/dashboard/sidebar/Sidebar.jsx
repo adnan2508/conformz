@@ -12,6 +12,8 @@ import { Link } from 'react-router-dom'
 import { AuthContext } from '../../../providers/AuthProviders';
 import { MdHomeWork } from 'react-icons/md';
 import { HiClipboardList } from 'react-icons/hi';
+import { IoListCircle } from "react-icons/io5";
+
 
 const Sidebar = () => {
   const { logOut } = useContext(AuthContext);
@@ -106,6 +108,18 @@ const Sidebar = () => {
               >
                 <HiClipboardList className='w-5 h-5' />
                 <span className='mx-4 font-medium'>My Created Contest</span>
+              </NavLink>
+
+              <NavLink
+                to='contest-submitted'
+                className={({ isActive }) =>
+                  `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-[#0c80b6]   hover:text-white ${
+                    isActive ? 'bg-[#0c80b6]  text-white' : 'text-gray-600'
+                  }`
+                }
+              >
+                <IoListCircle  className='w-5 h-5' />
+                <span className='mx-4 font-medium'>Contest Submitted</span>
               </NavLink>
             </nav>
           </div>

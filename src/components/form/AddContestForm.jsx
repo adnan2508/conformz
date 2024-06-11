@@ -1,15 +1,24 @@
 import { useState } from "react";
 import { DateRange } from "react-date-range";
-import 'react-date-range/dist/styles.css'; // main style file
-import 'react-date-range/dist/theme/default.css';
+import "react-date-range/dist/styles.css"; // main style file
+import "react-date-range/dist/theme/default.css";
 
-const AddContestForm = ({dates, handleDates, handleSubmit, setImagePreview, imagePreview, handleImage, imageText}) => {
+const AddContestForm = ({
+  dates,
+  handleDates,
+  handleSubmit,
+  setImagePreview,
+  imagePreview,
+  handleImage,
+  imageText,
+  loading,
+}) => {
   const [state, setState] = useState([
     {
       startDate: new Date(),
-      endDate: null,
-      key: 'selection',
-    }
+      endDate: new Date(),
+      key: "selection",
+    },
   ]);
 
   return (
@@ -64,10 +73,11 @@ const AddContestForm = ({dates, handleDates, handleSubmit, setImagePreview, imag
                 editableDateInputs={true}
                 onChange={(item) => {
                   handleDates(item);
-                  setState([item.selection]
-                  )}}
+                  setState([item.selection]);
+                }}
                 moveRangeOnFirstSelection={false}
-                ranges={state}/>
+                ranges={state}
+              />
             </div>
           </div>
           <div className="space-y-6">
@@ -92,20 +102,26 @@ const AddContestForm = ({dates, handleDates, handleSubmit, setImagePreview, imag
                     <input
                       className="text-sm cursor-pointer w-36 hidden"
                       type="file"
-                      onChange={e => handleImage(e.target.files[0])}
+                      onChange={(e) => handleImage(e.target.files[0])}
                       name="image"
                       id="image"
                       accept="image/*"
                       hidden
                     />
                     <div className="bg-[#41A5D2] text-white border border-gray-300 rounded font-semibold cursor-pointer p-1 px-3 hover:bg-[#035479]">
-                      {imageText.length > 20 ?  imageText.split('.')[0].slice(0,15) + '.....' + imageText.split('.')[1] : imageText}
+                      {imageText.length > 20
+                        ? imageText.split(".")[0].slice(0, 15) +
+                          "....." +
+                          imageText.split(".")[1]
+                        : imageText}
                     </div>
                   </label>
                 </div>
               </div>
               <div>
-              <div className="h-16 w-16 object-cover overflow-hidden flex items-center">{imagePreview && <img src={imagePreview} />}</div>
+                <div className="h-16 w-16 object-cover overflow-hidden flex items-center">
+                  {imagePreview && <img src={imagePreview} />}
+                </div>
               </div>
             </div>
             <div className="flex justify-between gap-2">
@@ -183,6 +199,7 @@ const AddContestForm = ({dates, handleDates, handleSubmit, setImagePreview, imag
         </div>
 
         <button
+          disabled={loading}
           type="submit"
           className="w-full p-3 mt-5 text-center font-medium text-white transition duration-200 rounded shadow-md bg-[#41A5D2]"
         >
