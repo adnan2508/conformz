@@ -17,7 +17,7 @@ const AddContest = () => {
   const [loading, setLoading] = useState(false);
   const [dates, setDates] = useState({
     startDate: new Date(),
-    endDate: null,
+    endDate: new Date(),
     key: "selection",
   });
 
