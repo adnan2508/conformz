@@ -6,6 +6,7 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProviders";
 import { imageUpload } from "../../api/utils/index.js";
+import { Helmet } from "react-helmet";
 
 const AddContest = () => {
   const navigate = useNavigate();
@@ -87,6 +88,10 @@ const AddContest = () => {
   };
 
   return (
+    <> 
+    <Helmet> 
+      <title>Dashboard | Add Contest</title>
+    </Helmet>
       <AddContestForm
         dates={dates}
         handleDates={handleDates}
@@ -97,6 +102,7 @@ const AddContest = () => {
         imageText={imageText}
         loading={loading}
       />
+      </>
   );
 };
 
