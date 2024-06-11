@@ -29,7 +29,7 @@ const AddContest = () => {
 
   const { mutateAsync } = useMutation({
     mutationFn: async (contestData) => {
-      const { data } = await axiosSecure.post(`/contests`, contestData);
+      const { data } = await axiosSecure.post(`/contest`, contestData);
       return data;
     },
     onSuccess: () => {
@@ -76,6 +76,9 @@ const AddContest = () => {
         image: image_url,
       };
       console.table(contestData);
+
+      //Post request on server
+      await mutateAsync(contestData);
     } catch (err) {
       console.log(err);
     }
@@ -88,10 +91,11 @@ const AddContest = () => {
   };
 
   return (
-    <> 
-    <Helmet> 
-      <title>Dashboard | Add Contest</title>
-    </Helmet>
+    <>
+      <Helmet>
+        <title>Dashboard | Add Contest</title>
+      </Helmet>
+
       <AddContestForm
         dates={dates}
         handleDates={handleDates}
@@ -102,7 +106,7 @@ const AddContest = () => {
         imageText={imageText}
         loading={loading}
       />
-      </>
+    </>
   );
 };
 
