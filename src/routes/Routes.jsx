@@ -11,6 +11,7 @@ import ContestDetails from "../pages/ContestDetails.jsx";
 import DashboardLayout from "../layouts/DashboardLayout.jsx";
 import AddContest from "../pages/creator/AddContest.jsx";
 import MyCreatedContest from "../pages/creator/MyCreatedContest.jsx";
+import ContestSubmitted from "../pages/creator/ContestSubmitted.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -51,6 +52,10 @@ export const router = createBrowserRouter([
       {
         path: "my-created-contest",
         element: <MyCreatedContest />,
+      },
+      {
+        path: "contest-submitted",
+        element: <ContestSubmitted />,
       },
     ],
   },

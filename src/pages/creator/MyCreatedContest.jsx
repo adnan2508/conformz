@@ -21,9 +21,9 @@ const MyCreatedContest = () => {
     },
   });
 
-  console.log(contests);
+  // console.log(contests);
 
-  // //   delete
+  //   delete
   const { mutateAsync } = useMutation({
     mutationFn: async id => {
       const { data } = await axiosSecure.delete(`/contest/${id}`)
@@ -34,9 +34,10 @@ const MyCreatedContest = () => {
       refetch()
       toast.success('Successfully deleted.')
     },
+    
   })
 
-  // //  Handle Delete
+  //  Handle Delete
   const handleDelete = async id => {
     console.log(id)
     try {
@@ -46,7 +47,7 @@ const MyCreatedContest = () => {
     }
   }
 
-  // if (isLoading) return <LoadingSpinner />
+ if (isLoading) return <LoadingSpinner />
 
   return (
     <div>
