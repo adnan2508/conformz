@@ -13,11 +13,15 @@ import { AuthContext } from '../../../providers/AuthProviders';
 import { MdHomeWork } from 'react-icons/md';
 import { HiClipboardList } from 'react-icons/hi';
 import { IoListCircle } from "react-icons/io5";
+import UseRole from '../../../hooks/useRole';
+import MenuItem from './menu/MenuItem';
 
 
 const Sidebar = () => {
   const { logOut } = useContext(AuthContext);
-  const [isActive, setActive] = useState(false)
+  const [isActive, setActive] = useState(false);
+  const [role, isLoading] = UseRole();
+  console.log(role);
 
   // Sidebar Responsive Handler
   const handleToggle = () => {
@@ -30,13 +34,6 @@ const Sidebar = () => {
         <div>
           <div className='block cursor-pointer p-4 font-bold'>
             <Link to='/'>
-              {/* <img
-                // className='hidden md:block'
-                src='https://i.ibb.co/4ZXzmq5/logo.png'
-                alt='logo'
-                width='100'
-                height='100'
-              /> */}
               <h2 className='text-[#ffffff] text-3xl'>Conformz</h2>
             </Link>
           </div>
@@ -86,7 +83,12 @@ const Sidebar = () => {
               </NavLink>
 
               {/* Add Contest */}
-              <NavLink
+              <MenuItem 
+              label={'Add Contest'} 
+              address='/dashboard/add-contest'
+              icon={IoIosAddCircle}
+              />
+              {/* <NavLink
                 to='add-contest'
                 className={({ isActive }) =>
                   `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-[#0c80b6]   hover:text-white ${
@@ -96,9 +98,14 @@ const Sidebar = () => {
               >
                 <IoIosAddCircle className='w-5 h-5' />
                 <span className='mx-4 font-medium'>Add Contest</span>
-              </NavLink>
+              </NavLink> */}
               {/* My Created Contest */}
-              <NavLink
+              <MenuItem 
+              label={'My Created Contest'} 
+              address='/dashboard/my-created-contest'
+              icon={HiClipboardList}
+              />
+              {/* <NavLink
                 to='my-created-contest'
                 className={({ isActive }) =>
                   `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-[#0c80b6]   hover:text-white ${
@@ -108,9 +115,15 @@ const Sidebar = () => {
               >
                 <HiClipboardList className='w-5 h-5' />
                 <span className='mx-4 font-medium'>My Created Contest</span>
-              </NavLink>
+              </NavLink> */}
 
-              <NavLink
+              {/*Contest Submitted*/}
+              <MenuItem 
+              label={'Contest Submitted'} 
+              address='/dashboard/contest-submitted'
+              icon={IoListCircle}
+              />
+              {/* <NavLink
                 to='contest-submitted'
                 className={({ isActive }) =>
                   `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-[#0c80b6]   hover:text-white ${
@@ -120,7 +133,7 @@ const Sidebar = () => {
               >
                 <IoListCircle  className='w-5 h-5' />
                 <span className='mx-4 font-medium'>Contest Submitted</span>
-              </NavLink>
+              </NavLink> */}
             </nav>
           </div>
         </div>
@@ -129,8 +142,13 @@ const Sidebar = () => {
           <hr />
 
           {/* Profile Menu */}
-          <NavLink
-            to='/dashboard/profile'
+          <MenuItem 
+              label={'Profile'} 
+              address='/dashboard/my-profile'
+              icon={FcSettings}
+              />
+          {/* <NavLink
+            to='/dashboard/my-profile'
             className={({ isActive }) =>
               `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-[#0c80b6]   hover:text-white ${
                 isActive ? 'bg-gray-300  text-gray-700' : 'text-gray-600'
@@ -140,7 +158,7 @@ const Sidebar = () => {
             <FcSettings className='w-5 h-5' />
 
             <span className='mx-4 font-medium'>Profile</span>
-          </NavLink>
+          </NavLink> */}
 
           <button
             onClick={logOut}

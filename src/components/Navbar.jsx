@@ -1,14 +1,47 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProviders";
+import CreatorReqModal from "./modal/CreatorReqModal";
+import { axiosSecure } from "../hooks/useAxiosSecure";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
   );
   const { user, logOut } = useContext(AuthContext);
-  console.log(user);
+  // console.log(user);
 
+  //For Modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const closeModal = ()=>{
+    setIsModalOpen(false);
+  }
+  const modalHandler = async () => {
+    console.log('I want to be a Creator')
+    closeModal()
+    try {
+      const currentUser = {
+        email: user?.email,
+        role: 'user',
+        status: 'Requested',
+      }
+      const { data } = await axiosSecure.put(`/user`, currentUser)
+      console.log(data)
+      if (data.modifiedCount > 0) {
+        toast.success('Success! Please wait for admin to accept')
+      } else {
+        toast.success('Please!, Wait for the admin to accept your request')
+      }
+    } catch (err) {
+      console.log(err)
+      toast.error(err.message)
+    } finally {
+      closeModal()
+    }
+  }
+
+  //Theme toggle
   const handleToggle = (e) => {
     if (e.target.checked) {
       setTheme("dark");
@@ -125,9 +158,20 @@ const Navbar = () => {
 
         {user && (
           <div className="navbar-end">
-            <button className="btn btn-secondary mr-5">
+            <button className="btn btn-secondary mr-5"
+            onClick={()=>{
+              setIsModalOpen(true)
+            }}>
               Become A Creator
             </button>
+            {/* Modal */}
+            <CreatorReqModal 
+            isOpen={isModalOpen}
+            closeModal={closeModal}
+            modalHandler={modalHandler}
+            >
+            </CreatorReqModal>
+
             <input
               type="checkbox"
               onChange={handleToggle}
