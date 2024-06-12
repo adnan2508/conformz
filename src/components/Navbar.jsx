@@ -125,6 +125,9 @@ const Navbar = () => {
 
         {user && (
           <div className="navbar-end">
+            <button className="btn btn-secondary mr-5">
+              Become A Creator
+            </button>
             <input
               type="checkbox"
               onChange={handleToggle}
@@ -154,12 +157,6 @@ const Navbar = () => {
                 </li>
                 <li>
                   <Link to="/dashboard">Dashboard</Link>
-                </li>
-                <li>
-                  <Link to="/addFood">Add a food item</Link>
-                </li>
-                <li>
-                  <Link to="/myOrderedFood">My ordered food items</Link>
                 </li>
                 <li>
                   <Link onClick={logOut}>Logout</Link>
