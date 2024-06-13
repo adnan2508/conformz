@@ -26,6 +26,8 @@ const Register = () => {
     console.log(data);
     createUser(data.email, data.password).then((result) => {
       const loggedUser = result.user;
+
+      // update profile segment 
       
       updateUserProfile(data.name, data.photo)
         .then(() => {
