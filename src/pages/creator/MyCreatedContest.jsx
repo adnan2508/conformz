@@ -1,4 +1,4 @@
-import { Helmet } from 'react-helmet-async'
+import { Helmet } from 'react-helmet';
 import { useMutation, useQuery } from '@tanstack/react-query'
 import toast from 'react-hot-toast'
 import { useContext } from 'react'
@@ -51,9 +51,9 @@ const MyCreatedContest = () => {
 
   return (
     <div>
-      {/* <Helmet>
+      <Helmet>
         <title>My created contest</title>
-      </Helmet> */}
+      </Helmet>
 
       <div className='container mx-auto px-4 sm:px-8'>
         <div className='py-8'>
