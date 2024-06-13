@@ -1,11 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
-import Home from '../pages/Home.jsx';
-import NotFound from '../pages/NotFound.jsx';
-import Login from '../pages/Login.jsx';
-import Register from '../pages/Register.jsx';
-import Secret from '../components/Secret.jsx';
+import Home from "../pages/Home.jsx";
+import NotFound from "../pages/NotFound.jsx";
+import Login from "../pages/Login.jsx";
+import Register from "../pages/Register.jsx";
+import Secret from "../components/Secret.jsx";
 import Main from "../layouts/Main.jsx";
-import PrivateRoutes from "./PrivateRoutes.jsx"; 
+import PrivateRoutes from "./PrivateRoutes.jsx";
 import AllContests from "../pages/AllContests.jsx";
 import ContestDetails from "../pages/ContestDetails.jsx";
 import DashboardLayout from "../layouts/DashboardLayout.jsx";
@@ -13,12 +13,16 @@ import AddContest from "../pages/creator/AddContest.jsx";
 import MyCreatedContest from "../pages/creator/MyCreatedContest.jsx";
 import ContestSubmitted from "../pages/creator/ContestSubmitted.jsx";
 import MyProfile from "../pages/user/MyProfile.jsx";
+import MyParticipatedContest from "../pages/user/MyParticipatedContest.jsx";
+import WinningContest from "../pages/user/WinningContest.jsx";
+import ManageUsers from "../pages/admin/ManageUsers.jsx";
+import ManageContest from "../pages/admin/ManageContest.jsx";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Main />,
-    errorElement: <NotFound/>,
+    errorElement: <NotFound />,
     children: [
       {
         path: "/",
@@ -30,9 +34,13 @@ export const router = createBrowserRouter([
       },
       {
         path: "/contest/:id",
-        element: <PrivateRoutes><ContestDetails /></PrivateRoutes>,
+        element: (
+          <PrivateRoutes>
+            <ContestDetails />
+          </PrivateRoutes>
+        ),
       },
-    ]
+    ],
   },
   {
     path: "/login",
@@ -62,6 +70,22 @@ export const router = createBrowserRouter([
         path: "my-profile",
         element: <MyProfile />,
       },
+      {
+        path: "my-participated-contest",
+        element: <MyParticipatedContest />,
+      },
+      {
+        path: "my-winning-contest",
+        element: <WinningContest />,
+      },
+      {
+        path: "manage-users",
+        element: <ManageUsers />,
+      },
+      {
+        path: "manage-contest",
+        element: <ManageContest />,
+      },
     ],
   },
-])
+]);
