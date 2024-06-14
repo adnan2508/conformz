@@ -2,8 +2,8 @@ import { useContext } from 'react';
 import { Helmet } from 'react-helmet';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import { AuthContext } from '../../providers/AuthProviders';
-import toast from 'react-hot-toast'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import toast from 'react-hot-toast';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import UserDataRow from '../../components/tableRows/UserDataRow';
 
@@ -11,7 +11,7 @@ const ManageUsers = () => {
   const { user } = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
 
-  //   Fetch Users Data
+  // Fetch Users Data
   const { data: users = [], isLoading, refetch } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
@@ -21,7 +21,7 @@ const ManageUsers = () => {
   });
 
   console.log(users);
-  if(isLoading) return <LoadingSpinner/>
+  if (isLoading) return <LoadingSpinner />;
 
   return (
     <>
@@ -47,12 +47,12 @@ const ManageUsers = () => {
                     >
                       Role
                     </th>
-                    <th
+                    {/* <th
                       scope='col'
                       className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
                     >
                       Status
-                    </th>
+                    </th> */}
 
                     <th
                       scope='col'
@@ -65,9 +65,9 @@ const ManageUsers = () => {
                 <tbody>
                   {/* User data table row */}
                   {users.map(user => 
-                  <UserDataRow key={user._id} user={user}></UserDataRow>
+                    <UserDataRow key={user._id} user={user} refetch={refetch} />
                   )}
-                  </tbody>
+                </tbody>
               </table>
             </div>
           </div>

@@ -4,6 +4,7 @@ import { AuthContext } from "../providers/AuthProviders";
 import CreatorReqModal from "./modal/CreatorReqModal";
 import { axiosSecure } from "../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
+import { IoIosLogOut } from "react-icons/io";
 
 const Navbar = () => {
   const [theme, setTheme] = useState(
@@ -89,22 +90,9 @@ const Navbar = () => {
               <li>
                 <Link to="/">Home</Link>
               </li>
-              <li>
-                <a>Parent</a>
-                <ul className="p-2">
-                  <li>
-                    <a>Submenu 1</a>
-                  </li>
-                  <li>
-                    <a>Submenu 2</a>
-                  </li>
-                </ul>
-              </li>
+              
               <li>
                 <Link to="/allContests">All Contests</Link>
-              </li>
-              <li>
-                <a>Item 3</a>
               </li>
             </ul>
           </div>
@@ -114,19 +102,6 @@ const Navbar = () => {
           <ul className="menu menu-horizontal px-1">
             <li>
               <Link to="/">Home</Link>
-            </li>
-            <li>
-              <details>
-                <summary>Parent</summary>
-                <ul className="px-2 text-black bg-base-100">
-                  <li>
-                    <a>Submenu 1</a>
-                  </li>
-                  <li>
-                    <a>Submenu 2</a>
-                  </li>
-                </ul>
-              </details>
             </li>
             <li>
               <Link to="/allContests">All Contests</Link>
@@ -196,14 +171,15 @@ const Navbar = () => {
                 tabIndex={0}
                 className="menu menu-sm bg-[#41A5D2] dropdown-content mt-3 z-[1] p-2 shadow rounded-box w-52"
               >
-                <li>
-                  <Link>{user.displayName}</Link>
+                <li className="text-black font-semibold text-lg text-center">
+                  {user.displayName}
                 </li>
+                <div className="divider"></div>
                 <li>
                   <Link to="/dashboard">Dashboard</Link>
                 </li>
-                <li>
-                  <Link onClick={logOut}>Logout</Link>
+                <li className="text-red-700 font-bold">
+                  <Link onClick={logOut}><IoIosLogOut className="text-lg"></IoIosLogOut> Logout</Link>
                 </li>
               </ul>
             </div>
