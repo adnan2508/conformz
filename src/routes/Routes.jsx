@@ -17,6 +17,10 @@ import MyParticipatedContest from "../pages/user/MyParticipatedContest.jsx";
 import WinningContest from "../pages/user/WinningContest.jsx";
 import ManageUsers from "../pages/admin/ManageUsers.jsx";
 import ManageContest from "../pages/admin/ManageContest.jsx";
+import UpdateMyContest from "../pages/creator/UpdateMyContest.jsx";
+import PaymentSuccess from "../components/PaymentSuccess.jsx";
+import SubmitAnswer from "../pages/user/SubmitAnswer.jsx";
+import ContestDetailsPage from "../pages/creator/ContestDetailsPage.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -31,6 +35,10 @@ export const router = createBrowserRouter([
       {
         path: "/allContests",
         element: <AllContests />,
+      },
+      {
+        path: 'payment/success/:tranId',
+        element: <PaymentSuccess></PaymentSuccess>
       },
       {
         path: "/contest/:id",
@@ -75,6 +83,14 @@ export const router = createBrowserRouter([
         element: <MyParticipatedContest />,
       },
       {
+        path: "contest/submit/:id",
+        element: <SubmitAnswer />,
+      },
+      {
+        path: "contest-details-submissions/:id",
+        element: <ContestDetailsPage />,
+      },
+      {
         path: "my-winning-contest",
         element: <WinningContest />,
       },
@@ -86,6 +102,10 @@ export const router = createBrowserRouter([
         path: "manage-contest",
         element: <ManageContest />,
       },
+      {
+        path:"my-contest/update/:id",
+        element: <UpdateMyContest></UpdateMyContest>
+      }
     ],
   },
 ]);

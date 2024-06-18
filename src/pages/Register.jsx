@@ -27,20 +27,62 @@ const Register = () => {
     createUser(data.email, data.password).then((result) => {
       const loggedUser = result.user;
 
+      console.log("result from createUser fn: ", loggedUser);
+
+
       // update profile segment 
-      
+
+      // updateUserProfile(data.name, data.photo)
+      // .then(()=>{
+      //   const newUser ={
+      //     name: data.name, 
+      //     photoURL: data.photo,
+      //   }
+      // })
+
+
       updateUserProfile(data.name, data.photo)
         .then(() => {
-          console.log("User Profile Updated!");
-          reset();
-          Swal.fire({
-            title: "User Created!",
-            text: "Your account has been created successfully!",
-            icon: "success",
-          });
-          navigate(from, { replace: true });
+          console.log(loggedUser);
+          const newUser = { name: loggedUser.displayName ? loggedUser.displayName : "", email: loggedUser.email, photoURL: loggedUser.photoURL, blockStatus: "unblocked", role: "user", totalParticipation: 0, totalWinning: 0, }
+          console.log("new User:", newUser);
+          fetch('http://localhost:5000/new-user-registration', {
+            method: 'POST',
+            headers: {
+              'content-type': 'application/json'
+            },
+            body: JSON.stringify(newUser)
+          })
+            .then(res => res.json())
+            .then(data => {
+              if (data.insertedId) {
+                Swal.fire({
+                  position: 'top-end',
+                  icon: 'success',
+                  title: 'User created successfully.',
+                  showConfirmButton: false,
+                  timer: 1500
+                });
+              }
+            })
+          console.log("from : ", from);
+          navigate(from);
         })
-        .catch((error) => console.log(error));
+        .catch(error => {
+          console.log(error);
+          // setError(error.message)
+        })
+      // .then(() => {
+      //   console.log("User Profile Updated!");
+      //   reset();
+      //   Swal.fire({
+      //     title: "User Created!",
+      //     text: "Your account has been created successfully!",
+      //     icon: "success",
+      //   });
+      //   navigate(from, { replace: true });
+      // })
+      // .catch((error) => console.log(error));
     });
   };
 
@@ -48,18 +90,18 @@ const Register = () => {
 
   useEffect(() => {
     loadCaptchaEnginge(4);
-}, [])
+  }, [])
 
-const handleValidateCaptcha = (e) => {
+  const handleValidateCaptcha = (e) => {
     const user_captcha_value = e.target.value;
-    if(validateCaptcha(user_captcha_value)){
-        setDisabled(false);
+    if (validateCaptcha(user_captcha_value)) {
+      setDisabled(false);
     }
     else {
-        setDisabled(true);
+      setDisabled(true);
     }
     console.log(value);
-}
+  }
 
   // const handleRegister = e => {
   //   e.preventDefault();
@@ -144,7 +186,7 @@ const handleValidateCaptcha = (e) => {
                     )}
                   </div>
                   <label className="label">
-                  <LoadCanvasTemplate />
+                    <LoadCanvasTemplate />
                   </label>
                   <input
                     type="text"

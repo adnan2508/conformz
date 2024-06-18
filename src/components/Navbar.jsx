@@ -11,7 +11,7 @@ const Navbar = () => {
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
   );
   const { user, logOut } = useContext(AuthContext);
-  // console.log(user);
+  console.log("got user: ",user);
 
   //For Modal
   const [isModalOpen, setIsModalOpen] = useState(false);

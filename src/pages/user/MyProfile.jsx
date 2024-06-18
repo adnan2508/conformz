@@ -1,17 +1,38 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
+import { Helmet } from 'react-helmet-async';
+import { useQuery } from "@tanstack/react-query";
 import { AuthContext } from "../../providers/AuthProviders";
-import { Helmet } from 'react-helmet-async'
 import UseRole from "../../hooks/useRole";
+import { axiosSecure } from "../../hooks/useAxiosSecure";
 import LoadingSpinner from "../../components/LoadingSpinner";
-
+import CustomActiveShapePieChart from "./CustomActiveShapePieChart";
+import ProfileUpdateModal from "./ProfileUpdateModal";
 
 const MyProfile = () => {
   const { user } = useContext(AuthContext);
   const [role, isLoading] = UseRole();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  if(isLoading) return <LoadingSpinner/>
+  const { data: userData = {}, refetch } = useQuery({
+    queryKey: ["userData", user?.email],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(`/user/${user?.email}`);
+      return data;
+    },
+  });
+
+  if (isLoading || !userData) return <LoadingSpinner />;
+
+  const chartData = [
+    { name: 'Winning', value: userData.totalWinning },
+    { name: 'Unsuccessful', value: userData.totalParticipation - userData.totalWinning },
+  ];
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex flex-col justify-center items-center">
       {/* <Helmet>
         <title>Profile</title>
       </Helmet> */}
@@ -26,7 +47,7 @@ const MyProfile = () => {
             <img
               alt="profile"
               src={user?.photoURL}
-              className="mx-auto object-cover rounded-full h-24 w-24  border-2 border-white "
+              className="mx-auto object-cover rounded-full h-24 w-24 border-2 border-white "
             />
           </a>
 
@@ -50,17 +71,25 @@ const MyProfile = () => {
               </p>
 
               <div>
-                <button className="bg-[#F43F5E] px-10 py-1 rounded-lg text-white cursor-pointer hover:bg-[#af4053] block mb-1">
+                <button onClick={openModal} className="bg-[#F43F5E] px-10 py-1 rounded-lg text-white cursor-pointer hover:bg-[#af4053] block mb-1">
                   Update Profile
-                </button>
-                <button className="bg-[#F43F5E] px-7 py-1 rounded-lg text-white cursor-pointer hover:bg-[#af4053]">
-                  Change Password
                 </button>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <div className="h-[400px] w-[500px] border rounded-lg my-10">
+        <h1 className="text-center font-bold text-3xl mt-5">Winning Ratio Charts</h1>
+        <CustomActiveShapePieChart data={chartData} />
+      </div>
+
+      <ProfileUpdateModal
+        isOpen={isModalOpen}
+        onRequestClose={closeModal}
+        userData={userData}
+        refetch={refetch}
+      />
     </div>
   );
 };

@@ -7,9 +7,11 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProviders";
 import { imageUpload } from "../../api/utils/index.js";
 import { Helmet } from "react-helmet";
+import UseBlock from "../../hooks/useBlock.jsx";
 
 const AddContest = () => {
   const navigate = useNavigate();
+  const [blockStatus, isLoading] = UseBlock();
   const axiosSecure = useAxiosSecure();
   const { user } = useContext(AuthContext);
   const [imagePreview, setImagePreview] = useState();
@@ -55,15 +57,14 @@ const AddContest = () => {
     const contestDescription = form.contestDescription.value;
     const image = form.image.files[0];
 
-    const creator = {
-      name: user?.displayName,
-      image: user?.photoURL,
-      email: user?.email,
-    };
+  
 
     try {
       const image_url = await imageUpload(image);
       const contestData = {
+        // creatorId: user?._id,
+        creatorImage:user?.photoURL,
+        creatorEmail:user?.email,
         contestName,
         contestType,
         taskSubmission,
@@ -71,9 +72,16 @@ const AddContest = () => {
         from,
         contestPrice,
         prize,
-        creator,
         contestDescription,
         image: image_url,
+        totalParticipant:0,
+        status: "pending",
+        submissionStatus: "open",
+        comments: "",
+        winnerId:"",
+        winnerName:"",
+        winnerEmail: "",
+        winnerImage:"",
       };
       console.table(contestData);
 
@@ -98,7 +106,8 @@ const AddContest = () => {
         <title>Dashboard | Add Contest</title>
       </Helmet>
 
-      <AddContestForm
+      {
+        !isLoading && blockStatus=="unblocked"? <AddContestForm
         dates={dates}
         handleDates={handleDates}
         handleSubmit={handleSubmit}
@@ -108,6 +117,10 @@ const AddContest = () => {
         imageText={imageText}
         loading={loading}
       />
+      :
+
+      <h1 className="text-center"> <span className="text-red-400 font-bold bg-red-100 rounded-lg px-2 py-1">You are not allowed for this service!</span></h1>
+      }
     </>
   );
 };

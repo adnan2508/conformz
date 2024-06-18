@@ -2,20 +2,65 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
-import {
-  Description,
-  Dialog,
-  DialogPanel,
-  DialogTitle,
-} from '@headlessui/react'
-import DeleteModal from "../modal/DeleteModal";
+import Swal from "sweetalert2";
+import { FaEdit } from "react-icons/fa";
+// import {
+//   Description,
+//   Dialog,
+//   DialogPanel,
+//   DialogTitle,
+// } from '@headlessui/react'
+// import DeleteModal from "../modal/DeleteModal";
 
-const TableRows = ({ contest, handleDelete }) => {
-  // for delete modal
-  let [isOpen, setIsOpen] = useState(false);
-  const closeModal = () => {
-    setIsOpen(false);
-  };
+const TableRows = ({ contest, refetch }) => {
+  
+
+  const handleContestDelete = (contest) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:5000/admin/contest-delete/${contest._id}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+          .then(res => res.json())
+          .then(data => {
+            console.log(data);
+            if (data.deletedCount) {
+              refetch();
+              Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: `The contest has been deleted successfully.`,
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            Swal.fire({
+              position: 'top-end',
+              icon: 'error',
+              title: 'Failed to delete contest.',
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          });
+      }
+    });
+
+
+  }
 
   return (
     <tr>
@@ -38,7 +83,7 @@ const TableRows = ({ contest, handleDelete }) => {
         </div>
       </td>
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-        <p className="text-gray-900 whitespace-no-wrap">Pending</p>
+        <p className="text-gray-900 whitespace-no-wrap">{contest.status}</p>
       </td>
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
         <p className="text-gray-900 whitespace-no-wrap">
@@ -56,40 +101,34 @@ const TableRows = ({ contest, handleDelete }) => {
         </p>
       </td>
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+        {
+          contest?.status =="pending" ? <button
+          onClick={() => handleContestDelete(contest)}
+          className="bg-red-400 text-white btn btn-sm"
+        >Delete</button>
+        :
         <button
-          onClick={() => setIsOpen(true)}
-          className="relative cursor-pointer inline-block px-3 py-1 font-semibold text-green-900 leading-tight"
-        >
-          <span
-            aria-hidden="true"
-            className="absolute inset-0 bg-red-200 opacity-50 rounded-full"
-          ></span>
-          <span className="relative">Delete</span>
-        </button>
-        {/* Delete modal */}
-        <DeleteModal
-            isOpen={isOpen}
-            closeModal={closeModal}
-            handleDelete={handleDelete}
-            id={contest?._id}
-          />
+          className="bg-red-200 hover:bg-red-200 hover:outline-none text-white btn btn-sm "
+          disabled
+        >Delete</button>
+        }
       </td>
-      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-        <span className="relative cursor-pointer inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-          <span
-            aria-hidden="true"
-            className="absolute inset-0 bg-green-200 opacity-50 rounded-full"
-          ></span>
-          <span className="relative">Update</span>
-        </span>
-        {/* Update Modal */}
+      <td className=" py-5 border-b border-blue-200 bg-white">
+       {
+        contest?.status =="pending" ? <Link to={`/dashboard/my-contest/update/${contest._id}`}><button className="btn btn-sm bg-teal-300"><FaEdit className=""></FaEdit> Edit</button></Link>
+        :
+        <Link><button className="btn btn-sm bg-teal-50 hover:bg-teal-50" disabled><FaEdit className=""></FaEdit> Edit</button></Link>
+       }
+      </td>
+      <td className="py-5 border-b border-gray-200 bg-white text-sm">
+       
 
         <Link to="/dashboard/contest-submitted">
           <button
             scope="col"
-            className="btn btn-primary ml-8 text-white text-left text-sm uppercase font-normal"
+            className="btn btn-sm bg-blue-400 ml-8 text-white text-left text-sm uppercase font-normal"
           >
-            See submitted
+            See Submission
           </button>
         </Link>
       </td>

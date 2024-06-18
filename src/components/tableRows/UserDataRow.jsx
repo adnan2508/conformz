@@ -4,6 +4,9 @@ import UpdateUserModal from "../modal/UpdateUserModal";
 import { useMutation } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
+import Swal from "sweetalert2";
+import { TiUserDelete } from "react-icons/ti";
+import { RiDeleteBin6Fill } from "react-icons/ri";
 
 const UserDataRow = ({ user, refetch }) => {
   const axiosSecure = useAxiosSecure();
@@ -17,7 +20,7 @@ const UserDataRow = ({ user, refetch }) => {
       return data;
     },
     onSuccess: data => {
-      refetch(); // Call refetch to update the data
+      refetch();
       console.log(data);
       toast.success("User role updated successfully!");
       setIsOpen(false);
@@ -29,7 +32,6 @@ const UserDataRow = ({ user, refetch }) => {
     console.log('user role updated!', selected);
     const updatedUser = {
       role: selected,
-      status: 'Verified',
     };
 
     try {
@@ -38,6 +40,84 @@ const UserDataRow = ({ user, refetch }) => {
       toast.error(err.message);
     }
   };
+
+  const blockStatusChange = (user, status) => {
+    fetch(`http://localhost:5000/admin/${user.email}`, {
+      method: 'PATCH',
+      body: JSON.stringify({ status }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        if (data.modifiedCount) {
+          refetch();
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: `User is now ${status}`,
+            showConfirmButton: false,
+            timer: 1500
+          })
+        }
+      })
+  }
+
+
+  const handleUserDelete = (user) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:5000/admin/user-delete/${user.email}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+          .then(res => res.json())
+          .then(data => {
+            console.log(data);
+            if (data.deletedCount) {
+              refetch(); // This function should reload the data from the server
+              Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: `User has been deleted successfully.`,
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            Swal.fire({
+              position: 'top-end',
+              icon: 'error',
+              title: 'Failed to delete user.',
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          });
+        // Swal.fire({
+        //   title: "Deleted!",
+        //   text: "Your file has been deleted.",
+        //   icon: "success"
+        // });
+      }
+    });
+
+
+  }
+
 
   return (
     <tr>
@@ -48,9 +128,7 @@ const UserDataRow = ({ user, refetch }) => {
         <p className="text-gray-900 whitespace-no-wrap">{user?.role}</p>
       </td>
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-        {user?.role === "admin" ? (
-          <p>already admin</p>
-        ) : (
+        {
           <button onClick={() => setIsOpen(true)} className="relative cursor-pointer inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
             <span
               aria-hidden="true"
@@ -58,13 +136,25 @@ const UserDataRow = ({ user, refetch }) => {
             ></span>
             <span className="relative">Update Role</span>
           </button>
-        )}
+        }
         {/* Update User Modal */}
         <UpdateUserModal
           isOpen={isOpen}
           setIsOpen={setIsOpen}
           modalHandler={modalHandler}
           user={user} />
+
+
+      </td>
+      <td className="py-5 border-b border-gray-200 bg-white text-sm">
+        {
+          user?.blockStatus == "unblocked" ? <div className="inline-block bg-slate-100 ms-3"> <span className="ms-1">User is Unblocked</span><button onClick={() => blockStatusChange(user, "blocked")} className="ms-1 btn bg-red-500 text-white">Block</button></div> : <div className="inline-block bg-slate-100 ms-3"> <span className="ms-1">User is Blocked</span><button onClick={() => blockStatusChange(user, "unblocked")} className="ms-1  btn text-white bg-success">Unblock</button></div>
+        }
+      </td>
+      <td className="px-2 py-5 border-b border-gray-200 bg-white text-sm">
+
+        <button onClick={() => handleUserDelete(user)} className=" btn border  bg-red-200  text-red-500"><RiDeleteBin6Fill className="text-2xl"></RiDeleteBin6Fill></button>
+
       </td>
     </tr>
   );
