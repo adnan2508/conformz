@@ -11,11 +11,11 @@ const Navbar = () => {
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
   );
   const { user, logOut } = useContext(AuthContext);
-  console.log("got user: ",user);
+  console.log("got user: ", user);
 
   //For Modal
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const closeModal = ()=>{
+  const closeModal = () => {
     setIsModalOpen(false);
   }
   const modalHandler = async () => {
@@ -59,7 +59,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     logOut()
-      .then(() => {})
+      .then(() => { })
       .catch((error) => console.log(error));
   };
   return (
@@ -90,9 +90,15 @@ const Navbar = () => {
               <li>
                 <Link to="/">Home</Link>
               </li>
-              
+
               <li>
                 <Link to="/allContests">All Contests</Link>
+              </li>
+              <li>
+                <Link to="/leader-board">Leader Board</Link>
+              </li>
+              <li>
+                <Link to="/about-us">About Us</Link>
               </li>
             </ul>
           </div>
@@ -105,6 +111,12 @@ const Navbar = () => {
             </li>
             <li>
               <Link to="/allContests">All Contests</Link>
+            </li>
+            <li>
+              <Link to="/leader-board">Leader Board</Link>
+            </li>
+            <li>
+              <Link to="/about-us">About Us</Link>
             </li>
           </ul>
         </div>
@@ -134,16 +146,16 @@ const Navbar = () => {
         {user && (
           <div className="navbar-end">
             <button className="btn btn-secondary mr-5"
-            onClick={()=>{
-              setIsModalOpen(true)
-            }}>
+              onClick={() => {
+                setIsModalOpen(true)
+              }}>
               Become A Creator
             </button>
             {/* Modal */}
-            <CreatorReqModal 
-            isOpen={isModalOpen}
-            closeModal={closeModal}
-            modalHandler={modalHandler}
+            <CreatorReqModal
+              isOpen={isModalOpen}
+              closeModal={closeModal}
+              modalHandler={modalHandler}
             >
             </CreatorReqModal>
 

@@ -20,6 +20,7 @@ const ManageContest = () => {
       return data;
     },
   });
+  
   if(!isLoading){
     console.log("all contest: ", contests);
   }

@@ -21,6 +21,8 @@ import UpdateMyContest from "../pages/creator/UpdateMyContest.jsx";
 import PaymentSuccess from "../components/PaymentSuccess.jsx";
 import SubmitAnswer from "../pages/user/SubmitAnswer.jsx";
 import ContestDetailsPage from "../pages/creator/ContestDetailsPage.jsx";
+import LeaderBoard from "../pages/LeaderBoard.jsx";
+import AboutUs from "../pages/AboutUs.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -35,6 +37,14 @@ export const router = createBrowserRouter([
       {
         path: "/allContests",
         element: <AllContests />,
+      },
+      {
+        path: "/leader-board",
+        element: <LeaderBoard />,
+      },
+      {
+        path: "/about-us",
+        element: <AboutUs />,
       },
       {
         path: 'payment/success/:tranId',
