@@ -100,11 +100,69 @@ const AboutUs = () => {
             <ul className="space-y-10 sm:grid sm:grid-cols-2 sm:gap-6 sm:space-y-0 lg:grid-cols-3 lg:gap-8">
               <li>
                 <div className="space-y-4">
-                  <img className="mx-auto h-40 w-40 rounded-full xl:w-56 xl:h-56" src="https://via.placeholder.com/150" alt="Team member" />
+                  <img className="mx-auto h-40 w-40 rounded-full xl:w-56 xl:h-56" src="https://i.ibb.co/bgz3yRp/user-2.jpg" alt="Team member" />
                   <div className="text-center space-y-2">
                     <div className="text-lg leading-6 font-medium space-y-1">
                       <h3>Jane Cooper</h3>
-                      <p className="text-indigo-600">CEO</p>
+                      <p className="text-indigo-600">Team Lead</p>
+                    </div>
+                    <ul className="flex justify-center space-x-5">
+                      <li>
+                        <a href="https://twitter.com" className="text-gray-400 hover:text-gray-500">
+                          <span className="sr-only">Twitter</span>
+                          <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M24 4.557a9.93 9.93 0 01-2.828.775 4.937 4.937 0 002.165-2.724 9.865 9.865 0 01-3.127 1.195 4.918 4.918 0 00-8.379 4.482A13.944 13.944 0 011.671 3.149a4.911 4.911 0 001.523 6.56 4.903 4.903 0 01-2.229-.616c-.054 2.281 1.581 4.415 3.95 4.89a4.921 4.921 0 01-2.224.085 4.92 4.92 0 004.599 3.417A9.865 9.865 0 010 19.54a13.915 13.915 0 007.548 2.212c9.142 0 14.307-7.72 14.307-14.42 0-.22-.006-.438-.016-.653A10.24 10.24 0 0024 4.557z" />
+                          </svg>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="https://linkedin.com" className="text-gray-400 hover:text-gray-500">
+                          <span className="sr-only">LinkedIn</span>
+                          <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M19.99 3H4.01C3.44 3 3 3.44 3 4.01v15.98C3 20.56 3.44 21 4.01 21h15.98C20.56 21 21 20.56 21 19.99V4.01C21 3.44 20.56 3 19.99 3zM8.43 18.67H5.76v-8.93h2.67v8.93zM7.1 8.34c-.85 0-1.54-.69-1.54-1.54 0-.85.69-1.54 1.54-1.54.85 0 1.54.69 1.54 1.54 0 .85-.69 1.54-1.54 1.54zm11.57 10.33h-2.67v-4.44c0-1.06-.02-2.42-1.47-2.42-1.47 0-1.7 1.15-1.7 2.34v4.52h-2.67v-8.93h2.56v1.22h.04c.36-.69 1.24-1.42 2.55-1.42 2.73 0 3.24 1.8 3.24 4.14v5.02z" />
+                          </svg>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div className="space-y-4">
+                  <img className="mx-auto h-40 w-40 rounded-full xl:w-56 xl:h-56" src="https://i.ibb.co/WVmx36M/user-3.jpg" alt="Team member" />
+                  <div className="text-center space-y-2">
+                    <div className="text-lg leading-6 font-medium space-y-1">
+                      <h3>John Doe</h3>
+                      <p className="text-indigo-600">UI/UX Designer</p>
+                    </div>
+                    <ul className="flex justify-center space-x-5">
+                      <li>
+                        <a href="https://twitter.com" className="text-gray-400 hover:text-gray-500">
+                          <span className="sr-only">Twitter</span>
+                          <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M24 4.557a9.93 9.93 0 01-2.828.775 4.937 4.937 0 002.165-2.724 9.865 9.865 0 01-3.127 1.195 4.918 4.918 0 00-8.379 4.482A13.944 13.944 0 011.671 3.149a4.911 4.911 0 001.523 6.56 4.903 4.903 0 01-2.229-.616c-.054 2.281 1.581 4.415 3.95 4.89a4.921 4.921 0 01-2.224.085 4.92 4.92 0 004.599 3.417A9.865 9.865 0 010 19.54a13.915 13.915 0 007.548 2.212c9.142 0 14.307-7.72 14.307-14.42 0-.22-.006-.438-.016-.653A10.24 10.24 0 0024 4.557z" />
+                          </svg>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="https://linkedin.com" className="text-gray-400 hover:text-gray-500">
+                          <span className="sr-only">LinkedIn</span>
+                          <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M19.99 3H4.01C3.44 3 3 3.44 3 4.01v15.98C3 20.56 3.44 21 4.01 21h15.98C20.56 21 21 20.56 21 19.99V4.01C21 3.44 20.56 3 19.99 3zM8.43 18.67H5.76v-8.93h2.67v8.93zM7.1 8.34c-.85 0-1.54-.69-1.54-1.54 0-.85.69-1.54 1.54-1.54.85 0 1.54.69 1.54 1.54 0 .85-.69 1.54-1.54 1.54zm11.57 10.33h-2.67v-4.44c0-1.06-.02-2.42-1.47-2.42-1.47 0-1.7 1.15-1.7 2.34v4.52h-2.67v-8.93h2.56v1.22h.04c.36-.69 1.24-1.42 2.55-1.42 2.73 0 3.24 1.8 3.24 4.14v5.02z" />
+                          </svg>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div className="space-y-4">
+                  <img className="mx-auto h-40 w-40 rounded-full xl:w-56 xl:h-56" src="https://i.ibb.co/LzfJmYy/user-1.jpg" alt="Team member" />
+                  <div className="text-center space-y-2">
+                    <div className="text-lg leading-6 font-medium space-y-1">
+                      <h3>Michel Enderson</h3>
+                      <p className="text-indigo-600">Web Developer</p>
                     </div>
                     <ul className="flex justify-center space-x-5">
                       <li>
