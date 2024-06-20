@@ -1,8 +1,21 @@
-# React + Vite
+# Conformz Web App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to Conformz, a web application designed to streamline your workflow!
 
-Currently, two official plugins are available:
+## Admin Credentials
+*Username: admin@gmail.com
+*Password: ffffff
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Live link: conformz.web.app
+
+### Features:
+- User Authentication: Secure login system to protect user data and access controls.
+- Responsive Design: Ensures a seamless experience across devices of all sizes.
+- Real-time Updates: Instant updates and notifications for task statuses and changes.
+- Search Functionality: Quickly find tasks using robust search capabilities.
+- Implemented tanstack query in all the data fetching functionality.
+- Contest Management: Creator creates contest and waits for admin approval.
+- A creator can select the winner of a particular contest.
+- An user can participate in a contest after successful payment.
+- Admin can assign a specific role to amy user.
+- Admin can block or delete an user.
