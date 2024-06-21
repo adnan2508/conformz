@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile, GoogleAuthProvider } from "firebase/auth";
 import { app } from "../firebase/firebase.config";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext(null);
 const auth = getAuth(app);
@@ -27,16 +28,6 @@ const AuthProviders = ({children}) => {
           });
     }
 
-    // Get token from server
-  const getToken = async email => {
-    const { data } = await axios.post(
-      `${import.meta.env.VITE_API_URL}/jwt`,
-      { email },
-      { withCredentials: true }
-    )
-    return data
-  }
-
     //sign in user
     const signIn = (email, password) => {
         setLoading(true);
@@ -55,23 +46,25 @@ const AuthProviders = ({children}) => {
         return signOut(auth);
     }
 
-    //Save user
-    const saveUser = async user =>{
-        const currentUser = {
-            email: user?.email,
-            role: 'user',
-            blockStatus:'unblocked',
-        }
-        const {data} = await axios.put(`${import.meta.env.VITE_API_URL}/user`,currentUser) 
-        return data;
-    }
+   
 
     useEffect(()=> {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser);
             if(currentUser) {
-                getToken(currentUser.email);
-                // saveUser(currentUser);
+                axios.post(
+                    `${import.meta.env.VITE_API_URL}/jwt`,
+                    {email: currentUser.email},
+                    { withCredentials: true })
+                    .then(data =>{
+                        // console.log("token: ",data);
+                        // console.log("token 1: ",data.data);
+                        console.log("token 2: ",data.data.token);
+                        localStorage.setItem('access-token', data.data.token) ;
+                    })
+            }
+            else{
+                localStorage.removeItem('access-token');
             }
             setLoading(false);
         });

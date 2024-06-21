@@ -7,7 +7,7 @@ import { IoIosAddCircle } from "react-icons/io";
 import { GrUserAdmin } from "react-icons/gr";
 import { AiOutlineBars } from "react-icons/ai";
 import { BsGraphUp } from "react-icons/bs";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../providers/AuthProviders";
 import { MdHomeWork } from "react-icons/md";
@@ -29,11 +29,17 @@ const Sidebar = () => {
   const [isActive, setActive] = useState(false);
   const [role, isLoading] = UseRole();
   console.log(role);
+  const navigate = useNavigate();
 
   // Sidebar Responsive Handler
   const handleToggle = () => {
     setActive(!isActive);
   };
+
+  const handleLogout=()=>{
+    logOut();
+    navigate('/');
+  }
   return (
     <>
       {/* Small Screen Navbar */}
@@ -181,7 +187,7 @@ const Sidebar = () => {
           </NavLink> */}
 
           <button
-            onClick={logOut}
+            onClick={()=>handleLogout()}
             className="flex w-full items-center px-4 py-2 mt-5 text-gray-600 hover:bg-[#0c80b6]   hover:text-white transition-colors duration-300 transform"
           >
             <GrLogout className="w-5 h-5" />

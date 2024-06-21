@@ -23,6 +23,7 @@ import SubmitAnswer from "../pages/user/SubmitAnswer.jsx";
 import ContestDetailsPage from "../pages/creator/ContestDetailsPage.jsx";
 import LeaderBoard from "../pages/LeaderBoard.jsx";
 import AboutUs from "../pages/AboutUs.jsx";
+// import Payments from "../pages/Payments.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -58,6 +59,14 @@ export const router = createBrowserRouter([
           </PrivateRoutes>
         ),
       },
+      // {
+      //   path: "/contest/registration/:id",
+      //   element: (
+      //     <PrivateRoutes>
+      //       <Payments />
+      //     </PrivateRoutes>
+      //   ),
+      // },
     ],
   },
   {

@@ -9,7 +9,7 @@ const BestContestCreators = () => {
   useEffect(() => {
     const fetchBestCreators = async () => {
       try {
-        const { data } = await axios.get('http://localhost:5000/creators/best');
+        const { data } = await axios.get('https://conformz-server.vercel.app/creators/best');
         setCreators(data);
         setLoading(false);
       } catch (error) {

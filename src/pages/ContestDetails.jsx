@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { format, differenceInSeconds } from 'date-fns';
 import LoadingSpinner from '../components/LoadingSpinner';
 import UseAxiosCommon from '../hooks/UseAxiosCommon';
 import UseRole from '../hooks/useRole';
 import UseBlock from '../hooks/useBlock';
 import { AuthContext } from '../providers/AuthProviders';
+import { Elements } from '@stripe/react-stripe-js';
+import CheckoutForm from './CheckoutForm';
+import { loadStripe } from '@stripe/stripe-js';
 
 const ContestDetails = () => {
   const { id } = useParams();
@@ -17,6 +20,11 @@ const ContestDetails = () => {
   const [loading, setLoading] = useState(true);
   const [timeRemaining, setTimeRemaining] = useState(0);
   const [isRegistered, setIsRegistered] = useState(false);
+  const [paymentVisible, setPaymentVisible] = useState(false);
+
+
+  const stripePromise = loadStripe(import.meta.env.VITE_Payment_Gateway_PK);
+
 
   useEffect(() => {
     const fetchContestDetails = async () => {
@@ -77,34 +85,6 @@ const ContestDetails = () => {
     ? format(new Date(contest.to), "MMM dd, yyyy 'at' hh:mm:ss a")
     : 'Not Available';
 
-  const handleRegistration = () => {
-    const paymentData = {
-      contestId: contest?._id,
-      participantName: user?.displayName,
-      participantEmail: user?.email,
-      participantPhotoURL: user?.photoURL,
-      contestName: contest?.contestName,
-      contestType: contest?.contestType,
-      contestImage: contest?.image,
-      creatorEmail: contest?.creatorEmail,
-      contestPrice: contest?.contestPrice,
-      deadline: contest?.to,
-    };
-    console.log(paymentData);
-    fetch('http://localhost:5000/contest-registration/payment', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify(paymentData)
-    })
-      .then(res => res.json())
-      .then(data => {
-        console.log(data);
-        window.location.replace(data.url);
-      })
-      .catch(error => console.log(error))
-  }
 
   return (
     <div className="bg-base-200 my-5">
@@ -128,7 +108,7 @@ const ContestDetails = () => {
             </span>
           ) : (
             isContestAvailable && !isRegistered && (
-              <button onClick={handleRegistration} className="btn btn-primary text-white">Register</button>
+              <button onClick={() => setPaymentVisible(true)} className="btn btn-primary text-white">Register</button>
             )
           )}
           {isRegistered && (
@@ -136,6 +116,27 @@ const ContestDetails = () => {
               You are already registered for this contest.
             </span>
           )}
+          {
+            paymentVisible && <div>
+              <Elements stripe={stripePromise}>
+                <CheckoutForm price={parseInt(contest?.contestPrice, 10)}
+                  contestId={contest?._id}
+                  participantName={user?.displayName}
+                  participantEmail={user?.email}
+                  participantPhotoURL={user?.photoURL}
+                  contestName={contest?.contestName}
+                  contestType={contest?.contestType}
+                  contestImage={contest?.image}
+                  creatorEmail={contest?.creatorEmail}
+                  deadline={contest?.to}
+                  prize={contest?.prize}
+                  totalParticipant={contest?.totalParticipant}
+                ></CheckoutForm>
+              </Elements>
+            </div>
+          }
+
+
         </div>
       </div>
       <div className='p-10'>

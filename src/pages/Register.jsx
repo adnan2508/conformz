@@ -46,7 +46,7 @@ const Register = () => {
           console.log(loggedUser);
           const newUser = { name: loggedUser.displayName ? loggedUser.displayName : "", email: loggedUser.email, photoURL: loggedUser.photoURL, blockStatus: "unblocked", role: "user", totalParticipation: 0, totalWinning: 0, }
           console.log("new User:", newUser);
-          fetch('http://localhost:5000/new-user-registration', {
+          fetch('https://conformz-server.vercel.app/new-user-registration', {
             method: 'POST',
             headers: {
               'content-type': 'application/json'

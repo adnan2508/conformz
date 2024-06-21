@@ -26,7 +26,7 @@ const TableRows = ({ contest, refetch }) => {
       confirmButtonText: "Yes, delete it!"
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/admin/contest-delete/${contest._id}`, {
+        fetch(`https://conformz-server.vercel.app/admin/contest-delete/${contest._id}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',

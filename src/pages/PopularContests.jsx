@@ -13,7 +13,7 @@ const PopularContests = () => {
   useEffect(() => {
     const fetchPopularContests = async () => {
       try {
-        const { data } = await axios.get('http://localhost:5000/contests/popular');
+        const { data } = await axios.get('https://conformz-server.vercel.app/contests/popular');
         setContests(data);
         setLoading(false);
       } catch (error) {

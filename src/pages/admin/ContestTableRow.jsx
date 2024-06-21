@@ -10,7 +10,7 @@ const ContestTableRow = ({ contest, refetch }) => {
   const [isCommentOpen, setIsCommentOpen] = useState(false);
 
   const handleStatus = (contest, status) => {
-    fetch(`http://localhost:5000/admin/contest-approval/${contest._id}`, {
+    fetch(`https://conformz-server.vercel.app/admin/contest-approval/${contest._id}`, {
       method: 'PATCH',
       body: JSON.stringify({ status }),
       headers: {
@@ -34,7 +34,7 @@ const ContestTableRow = ({ contest, refetch }) => {
   };
 
   const handleCommentSubmit = (comment) => {
-    fetch(`http://localhost:5000/admin/contest-comment/${contest._id}`, {
+    fetch(`https://conformz-server.vercel.app/admin/contest-comment/${contest._id}`, {
       method: 'PATCH',
       body: JSON.stringify({ comment }),
       headers: {
@@ -69,7 +69,7 @@ const ContestTableRow = ({ contest, refetch }) => {
       confirmButtonText: "Yes, delete it!"
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/admin/contest-delete/${contest._id}`, {
+        fetch(`https://conformz-server.vercel.app/admin/contest-delete/${contest._id}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',

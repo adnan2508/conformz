@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import { TiUserDelete } from "react-icons/ti";
 import { RiDeleteBin6Fill } from "react-icons/ri";
+import { FaInfoCircle } from "react-icons/fa";
 
 const UserDataRow = ({ user, refetch }) => {
   const axiosSecure = useAxiosSecure();
@@ -42,7 +43,7 @@ const UserDataRow = ({ user, refetch }) => {
   };
 
   const blockStatusChange = (user, status) => {
-    fetch(`http://localhost:5000/admin/${user.email}`, {
+    fetch(`https://conformz-server.vercel.app/admin/${user.email}`, {
       method: 'PATCH',
       body: JSON.stringify({ status }),
       headers: {
@@ -77,7 +78,7 @@ const UserDataRow = ({ user, refetch }) => {
       confirmButtonText: "Yes, delete it!"
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/admin/user-delete/${user.email}`, {
+        fetch(`https://conformz-server.vercel.app/admin/user-delete/${user.email}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
@@ -125,7 +126,12 @@ const UserDataRow = ({ user, refetch }) => {
         <p className="text-gray-900 whitespace-no-wrap">{user?.email}</p>
       </td>
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-        <p className="text-gray-900 whitespace-no-wrap">{user?.role}</p>
+        <p className="text-gray-900 whitespace-no-wrap">{user?.role}
+          <span>{user?.status==="Requested" && 
+          <span className="bg-yellow-500 text-sm px-3 py-1 rounded border ms-3 text-slate-100 font-bold"><FaInfoCircle className="inline-block"></FaInfoCircle> User requested to be a &apos;CREATOR&apos;</span>
+            
+            }</span>
+        </p>
       </td>
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
         {

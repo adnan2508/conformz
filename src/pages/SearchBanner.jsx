@@ -18,7 +18,7 @@ const SearchBanner = ({ setSearchResults }) => {
     }
 
     try {
-      const { data } = await axios.get(`http://localhost:5000/search?query=${searchTerm}`);
+      const { data } = await axios.get(`https://conformz-server.vercel.app/search?query=${searchTerm}`);
       setSearchResults(data);
     } catch (error) {
       console.error('Error searching contests:', error);

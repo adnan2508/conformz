@@ -1,24 +1,40 @@
 import React, { useContext, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import UseAxiosCommon from '../../hooks/UseAxiosCommon';
 import { AuthContext } from '../../providers/AuthProviders';
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 const SubmitAnswer = () => {
   const { id } = useParams();
-  const { user } = useContext(AuthContext);
+  const { user, loading } = useContext(AuthContext);
   const [submissionLink, setSubmissionLink] = useState('');
-  const axiosCommon = UseAxiosCommon();
   const navigate = useNavigate();
 
-  console.log("contest Id: ", id);
+  console.log("contest Id:", id);
+
+  if (loading) return <LoadingSpinner />;
 
   const handleSubmit = async () => {
     try {
-      await axiosCommon.post(`/contest/${id}/submit`, {
-        participantEmail: user?.email, // Replace with the actual user email
-        submissionLink
+      const response = await fetch(`https://conformz-server.vercel.app/contest/${id}/submit`, { // Update URL for deployment
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('access-token')}`
+        },
+        body: JSON.stringify({
+          participantName: user?.displayName,
+          participantEmail: user?.email,
+          submissionLink
+        }),
       });
-      navigate('/dashboard/my-participated-contest'); // Navigate back to the contests page after submission
+
+      if (!response.ok) {
+        throw new Error('Submission failed');
+      }
+
+      const data = await response.json();
+      console.log('Submission successful:', data);
+      navigate('/dashboard/my-participated-contest');
     } catch (error) {
       console.error('Error submitting answer:', error);
     }

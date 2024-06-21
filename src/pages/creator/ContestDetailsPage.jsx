@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import { axiosSecure } from '../../hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 const ContestDetailsPage = () => {
   const { id } = useParams();
@@ -17,11 +18,14 @@ const ContestDetailsPage = () => {
       return data;
     },
   });
+  if(isLoading){
+    <LoadingSpinner/>
+  }
 
 
   const handleDeclareWinner = (contestId,participantEmail) => {
     console.log("contestId: ", contestId, "participantId: ", participantEmail);
-    fetch(`http://localhost:5000/creator/contest/${contestId}/declare-winner/${participantEmail}`, {
+    fetch(`https://conformz-server.vercel.app/creator/contest/${contestId}/declare-winner/${participantEmail}`, {
       method: 'PATCH',
       body: JSON.stringify({ participantEmail }),
       headers: {
@@ -66,18 +70,18 @@ const ContestDetailsPage = () => {
         <tbody>
           {contest?.participants?.map((participant) => (
             <tr key={participant._id}>
-              <td className="border border-gray-300 px-4 py-2">{participant.name}</td>
-              <td className="border border-gray-300 px-4 py-2">{participant.email}</td>
+              <td className="border border-gray-300 px-4 py-2">{participant.participantName}</td>
+              <td className="border border-gray-300 px-4 py-2">{participant.participantEmail}</td>
               <td className="border border-gray-300 px-4 py-2">{participant.submissionLink}</td>
               <td className="border border-gray-300 px-4 py-2">
                 {contest?.winnerEmail ? (
-                  contest.winnerEmail === participant.email ? (
+                  contest.winnerEmail === participant.participantEmail ? (
                     <span className="text-green-600">Winner</span>
                   ) : (
                     <span className="text-red-600">Unsuccessful</span>
                   )
                 ) : (
-                  <button className="bg-green-500 text-white px-2 py-1 rounded" onClick={() => handleDeclareWinner(contest?._id,participant.email)}>Declare Winner</button>
+                  <button className="bg-green-500 text-white px-2 py-1 rounded" onClick={() => handleDeclareWinner(contest?._id,participant.participantEmail)}>Declare Winner</button>
                 )}
               </td>
             </tr>
