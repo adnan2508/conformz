@@ -19,3 +19,10 @@ Welcome to Conformz, a web application designed to streamline your workflow!
 - An user can participate in a contest after successful payment.
 - Admin can assign a specific role to amy user.
 - Admin can block or delete an user.
+### Technologies: 
+- React.js: For building the user interface and creating reusable components.
+- Express.js: For handling the backend server and API routes.
+- MongoDB: As the database for storing user and tourist spot information.
+- Node.js: For server-side scripting and handling backend logic.
+- React Router: For handling client-side routing and navigation between pages.
+- Dotenv: For managing environment variables and configuration settings.
